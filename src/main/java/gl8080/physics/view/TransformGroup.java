@@ -1,6 +1,6 @@
 package gl8080.physics.view;
 
-import gl8080.physics.domain.Point;
+import gl8080.physics.domain.primitive.Point;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.transform.Rotate;

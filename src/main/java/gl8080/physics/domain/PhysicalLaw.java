@@ -1,5 +1,5 @@
 package gl8080.physics.domain;
 
 public interface PhysicalLaw {
-    void apply(Physical physical);
+    void apply(Physical physical, double sec);
 }

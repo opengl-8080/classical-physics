@@ -1,7 +1,8 @@
 package gl8080.physics.view;
 
-import gl8080.physics.domain.Point;
+import gl8080.physics.domain.primitive.Point;
 import gl8080.physics.view.MousePosition.Difference;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -16,7 +17,7 @@ public class Space {
         this.transform = new TransformGroup(this.createCenter(size));
         this.transform.rotate(30, -30);
         
-        this.mainView = new SubScene(this.transform.getGroup(), 1200, 750);
+        this.mainView = new SubScene(this.transform.getGroup(), 1200, 750, true, SceneAntialiasing.BALANCED);
         this.mainView.setFill(Color.WHITE);
 
         this.mainView.addEventHandler(MouseEvent.MOUSE_PRESSED, this.mousePosition::save);

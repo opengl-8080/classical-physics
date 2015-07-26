@@ -8,7 +8,7 @@ public class DummyLaw implements PhysicalLaw {
     private int i = 0;
     
     @Override
-    public void apply(Physical physical) {
+    public void apply(Physical physical, double sec) {
         System.out.println((i++) + " : " + physical);
     }
 }
