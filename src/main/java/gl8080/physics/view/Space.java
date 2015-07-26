@@ -23,7 +23,7 @@ public class Space {
         this.mainView.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::handleMouseDrag);
         
         this.mainView.setCamera(camera.getCamera());
-        camera.moveBackAndFront(size * 2);
+        camera.moveBackAndFront(size * 2.5);
     }
     
     private Point createCenter(double size) {
