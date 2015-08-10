@@ -15,7 +15,7 @@ public class Space {
     
     public Space(double size, Camera camera) {
         this.transform = new TransformGroup(this.createCenter(size));
-        this.transform.rotate(30, -30);
+        this.transform.rotate(30, -30); // 初期アングルを設定（ちょっと斜め上から見る感じ）
         
         this.mainView = new SubScene(this.transform.getGroup(), 1200, 750, true, SceneAntialiasing.BALANCED);
         this.mainView.setFill(Color.WHITE);
@@ -34,7 +34,7 @@ public class Space {
     private void handleMouseDrag(MouseEvent e) {
         Difference diff = this.mousePosition.difference(e);
         
-        if (e.isPrimaryButtonDown()) {
+        if (e.isPrimaryButtonDown()) { // 左ドラッグに合わせて回転
             this.transform.rotate(-diff.y * 0.1, -diff.x * 0.1);
         }
     }

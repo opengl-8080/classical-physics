@@ -6,6 +6,7 @@ public class Time {
 
     private final World world;
     private static final double FRAME_LATE = 1.0 / 30.0;
+    private boolean isContinued = true;
     
     public Time(World world) {
         Objects.requireNonNull(world);
@@ -13,10 +14,14 @@ public class Time {
     }
     
     public void start() {
-        while (true) {
+        while (this.isContinued) {
             this.world.next(FRAME_LATE);
             this.sleep(FRAME_LATE);
         }
+    }
+    
+    public void stop() {
+        this.isContinued = false;
     }
     
     private void sleep(double sec) {

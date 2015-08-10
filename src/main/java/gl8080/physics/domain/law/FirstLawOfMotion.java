@@ -6,7 +6,7 @@ import gl8080.physics.domain.primitive.Point;
 import gl8080.physics.domain.primitive.Velocity;
 
 /**
- * 運動の第１法則
+ * 運動の法則
  */
 public class FirstLawOfMotion implements PhysicalLaw {
     

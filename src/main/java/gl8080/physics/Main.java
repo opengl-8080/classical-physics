@@ -1,5 +1,6 @@
 package gl8080.physics;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import gl8080.physics.domain.Time;
@@ -24,12 +25,20 @@ public class Main extends Application {
         launch(args);
     }
     
+    private ExecutorService service = Executors.newSingleThreadExecutor();
+    private Time time;
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         Scene root = new Scene(createContent());
         primaryStage.setScene(root);
         primaryStage.show();
+        
+        primaryStage.setOnCloseRequest(e -> {
+            this.time.stop();
+            this.service.shutdown();
+        });
     }
 
     public Parent createContent() throws Exception {
@@ -44,10 +53,10 @@ public class Main extends Application {
         World world = new World();
         world.addPhysical(ball);
         world.addPhysicalLaws(new FirstLawOfMotion());
-        Time time = new Time(world);
+        this.time = new Time(world);
         
-        Executors.newSingleThreadExecutor().execute(() -> {
-            time.start();
+        this.service.execute(() -> {
+            this.time.start();
         });
         
         return new Group(space.getSubScene());
