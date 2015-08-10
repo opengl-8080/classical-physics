@@ -11,12 +11,12 @@ import gl8080.physics.domain.primitive.Velocity;
 public class LawOfMotion implements PhysicalLaw {
     
     @Override
-    public void apply(Physical physical, double sec) {
-        Velocity velocity = physical.getVelocity();
-        Point from = physical.getLocation();
+    public void apply(Physical physical, double t) {
+        Velocity v = physical.getVelocity();
+        Point p = physical.getLocation();
         
-        Point to = from.add(velocity.x * sec, velocity.y * sec, velocity.z * sec);
+        Point pt = p.add(t*v.x, t*v.y, t*v.z);
         
-        physical.setLocation(to);
+        physical.setLocation(pt);
     }
 }

@@ -14,8 +14,8 @@ public class BallShape implements Content, Consumer<Point> {
     private Sphere sphere;
     private Translate translate = new Translate();
 
-    public BallShape(Ball ball) {
-        this.sphere = new Sphere(ball.getRadius());
+    public BallShape(Ball ball, double radius) {
+        this.sphere = new Sphere(radius);
         this.sphere.getTransforms().add(this.translate);
         ball.addLocationListener(this);
         this.translate(ball.getLocation());

@@ -42,17 +42,26 @@ public class Main extends Application {
     }
 
     public Parent createContent() throws Exception {
+        // ボールを作る
+        Point location = new Point(10, 10, 10); // 初期位置
+        Velocity velocity = new Velocity(5.0, 2.0, 7.0); // 速度
+        Ball ball = new Ball(location, velocity);
+        
+        // 実験空間の用意
         final double size = 100;
         Space space = new Space(size, new Camera());
         space.add(new Axis(size));
         
-        Ball ball = new Ball(new Point(10, 10, 10), 1.0);
-        ball.setVelocity(new Velocity(5.0, 2.0, 7.0));
-        space.add(new BallShape(ball));
+        // ボールのシェイプを作り、空間に追加する
+        BallShape ballShape = new BallShape(ball, 1.0);
+        space.add(ballShape);
         
+        // 世界を作り、ボールと物理法則を追加する
         World world = new World();
         world.addPhysical(ball);
         world.addPhysicalLaws(new LawOfMotion());
+        
+        // 時の流れをスタートさせる
         this.time = new Time(world);
         
         this.service.execute(() -> {

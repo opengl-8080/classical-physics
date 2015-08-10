@@ -12,17 +12,14 @@ import gl8080.physics.domain.primitive.Velocity;
 public class Ball implements Physical {
     
     private Point location;
-    private Velocity velocity = Velocity.ZERO;
-    private final double radius;
+    private Velocity velocity;
     private Set<Consumer<Point>> locationListeners = new HashSet<>();
     
-    public Ball(Point location, double radius) {
+    public Ball(Point location, Velocity velocity) {
+        Objects.requireNonNull(location);
+        Objects.requireNonNull(velocity);
         this.location = location;
-        this.radius = radius;
-    }
-
-    public double getRadius() {
-        return this.radius;
+        this.velocity = velocity;
     }
 
     @Override
@@ -41,13 +38,7 @@ public class Ball implements Physical {
     public Velocity getVelocity() {
         return this.velocity;
     }
-
-    public void setVelocity(Velocity velocity) {
-        Objects.requireNonNull(velocity);
-        this.velocity = velocity;
-    }
     
-    @Override
     public void addLocationListener(Consumer<Point> listener) {
         Objects.requireNonNull(listener);
         this.locationListeners.add(listener);
