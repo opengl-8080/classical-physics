@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 import gl8080.physics.domain.Time;
 import gl8080.physics.domain.World;
-import gl8080.physics.domain.law.FirstLawOfMotion;
+import gl8080.physics.domain.law.LawOfMotion;
 import gl8080.physics.domain.physical.Ball;
 import gl8080.physics.domain.primitive.Point;
 import gl8080.physics.domain.primitive.Velocity;
@@ -52,7 +52,7 @@ public class Main extends Application {
         
         World world = new World();
         world.addPhysical(ball);
-        world.addPhysicalLaws(new FirstLawOfMotion());
+        world.addPhysicalLaws(new LawOfMotion());
         this.time = new Time(world);
         
         this.service.execute(() -> {

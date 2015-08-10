@@ -8,7 +8,7 @@ import gl8080.physics.domain.primitive.Velocity;
 /**
  * 運動の法則
  */
-public class FirstLawOfMotion implements PhysicalLaw {
+public class LawOfMotion implements PhysicalLaw {
     
     @Override
     public void apply(Physical physical, double sec) {
