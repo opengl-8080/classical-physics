@@ -18,7 +18,6 @@ import gl8080.physics.view.Camera;
 import gl8080.physics.view.Space;
 import gl8080.physics.view.shape.BallLocus;
 import gl8080.physics.view.shape.BallShape;
-import gl8080.physics.view.shape.SampleShape;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
