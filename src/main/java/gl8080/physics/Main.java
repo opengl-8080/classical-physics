@@ -16,7 +16,9 @@ import gl8080.physics.domain.primitive.Velocity;
 import gl8080.physics.view.Axis;
 import gl8080.physics.view.Camera;
 import gl8080.physics.view.Space;
+import gl8080.physics.view.shape.BallLocus;
 import gl8080.physics.view.shape.BallShape;
+import gl8080.physics.view.shape.SampleShape;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -46,6 +48,7 @@ public class Main extends Application {
     }
 
     public Parent createContent() throws Exception {
+        
         // ボールを作る
         Mass mass = new Mass(10.0); // 質量
         Point location = new Point(50.0, 80.0, 25.0); // 初期位置
@@ -62,16 +65,21 @@ public class Main extends Application {
         // ボールのシェイプを作り、空間に追加する
         BallShape ballShape = new BallShape(ball, 1.0);
         space.add(ballShape);
+        space.add(new SampleShape());
         
         // 物理法則を作り、力に向心力を設定
         Point center = new Point(50.0, 50.0, 50.0);
         ActingForce actingForce = new CentripetalForce(center, 50.0);
         PhysicalLaw law = new LawOfMotion(actingForce);
+        
+        // 軌跡
+        BallLocus locus = BallLocus.create(law).radius(0.5).build();
+        space.add(locus);
 
         // 世界を作り、ボールと物理法則を追加する
         World world = new World();
         world.addPhysical(ball);
-        world.addPhysicalLaws(law);
+        world.addPhysicalLaws(locus);
         
         // 時の流れをスタートさせる
         this.time = new Time(world);
