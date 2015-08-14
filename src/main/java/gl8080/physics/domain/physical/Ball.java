@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import gl8080.physics.domain.Physical;
+import gl8080.physics.domain.primitive.Mass;
 import gl8080.physics.domain.primitive.Point;
 import gl8080.physics.domain.primitive.Velocity;
 
@@ -13,13 +14,12 @@ public class Ball implements Physical {
     
     private Point location;
     private Velocity velocity;
+    private final Mass mass;
     private Set<Consumer<Point>> locationListeners = new HashSet<>();
     
-    public Ball(Point location, Velocity velocity) {
-        Objects.requireNonNull(location);
-        Objects.requireNonNull(velocity);
-        this.location = location;
-        this.velocity = velocity;
+    public Ball(Mass mass) {
+        Objects.requireNonNull(mass);
+        this.mass = mass;
     }
 
     @Override
@@ -37,6 +37,17 @@ public class Ball implements Physical {
     @Override
     public Velocity getVelocity() {
         return this.velocity;
+    }
+    
+    @Override
+    public void setVelocity(Velocity velocity) {
+        Objects.requireNonNull(velocity);
+        this.velocity = velocity;
+    }
+    
+    @Override
+    public Mass getMass() {
+        return this.mass;
     }
     
     public void addLocationListener(Consumer<Point> listener) {

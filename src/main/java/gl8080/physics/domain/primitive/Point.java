@@ -16,4 +16,9 @@ public class Point {
     public Point add(double dx, double dy, double dz) {
         return new Point(this.x + dx, this.y + dy, this.z + dz);
     }
+    
+    @Override
+    public String toString() {
+        return "Point {" + this.x + ", " + this.y + ", " + this.z + "}";
+    }
 }

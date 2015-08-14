@@ -3,10 +3,15 @@ package gl8080.physics;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import gl8080.physics.domain.ActingForce;
+import gl8080.physics.domain.PhysicalLaw;
 import gl8080.physics.domain.Time;
 import gl8080.physics.domain.World;
+import gl8080.physics.domain.force.DummyForce;
+import gl8080.physics.domain.force.EarthGravity;
 import gl8080.physics.domain.law.LawOfMotion;
 import gl8080.physics.domain.physical.Ball;
+import gl8080.physics.domain.primitive.Mass;
 import gl8080.physics.domain.primitive.Point;
 import gl8080.physics.domain.primitive.Velocity;
 import gl8080.physics.view.Axis;
@@ -43,9 +48,12 @@ public class Main extends Application {
 
     public Parent createContent() throws Exception {
         // ボールを作る
-        Point location = new Point(10, 10, 10); // 初期位置
-        Velocity velocity = new Velocity(5.0, 2.0, 7.0); // 速度
-        Ball ball = new Ball(location, velocity);
+        Mass mass = new Mass(10.0); // 質量
+        Point location = new Point(0.0, 0.0, 100.0); // 初期位置
+        Velocity velocity = new Velocity(12.5, 40.0, -12.5); // 速度
+        Ball ball = new Ball(mass);
+        ball.setLocation(location);
+        ball.setVelocity(velocity);
         
         // 実験空間の用意
         final double size = 100;
@@ -57,9 +65,12 @@ public class Main extends Application {
         space.add(ballShape);
         
         // 世界を作り、ボールと物理法則を追加する
+        ActingForce actingForce = new EarthGravity(); // 重力を追加
+        PhysicalLaw law = new LawOfMotion(actingForce);
+        
         World world = new World();
         world.addPhysical(ball);
-        world.addPhysicalLaws(new LawOfMotion());
+        world.addPhysicalLaws(law);
         
         // 時の流れをスタートさせる
         this.time = new Time(world);
