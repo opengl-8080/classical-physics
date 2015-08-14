@@ -7,8 +7,7 @@ import gl8080.physics.domain.ActingForce;
 import gl8080.physics.domain.PhysicalLaw;
 import gl8080.physics.domain.Time;
 import gl8080.physics.domain.World;
-import gl8080.physics.domain.force.DummyForce;
-import gl8080.physics.domain.force.EarthGravity;
+import gl8080.physics.domain.force.CentripetalForce;
 import gl8080.physics.domain.law.LawOfMotion;
 import gl8080.physics.domain.physical.Ball;
 import gl8080.physics.domain.primitive.Mass;
@@ -49,8 +48,8 @@ public class Main extends Application {
     public Parent createContent() throws Exception {
         // ボールを作る
         Mass mass = new Mass(10.0); // 質量
-        Point location = new Point(0.0, 0.0, 100.0); // 初期位置
-        Velocity velocity = new Velocity(12.5, 40.0, -12.5); // 速度
+        Point location = new Point(50.0, 80.0, 25.0); // 初期位置
+        Velocity velocity = new Velocity(10.0, 0.0, 0.0); // 速度
         Ball ball = new Ball(mass);
         ball.setLocation(location);
         ball.setVelocity(velocity);
@@ -64,10 +63,12 @@ public class Main extends Application {
         BallShape ballShape = new BallShape(ball, 1.0);
         space.add(ballShape);
         
-        // 世界を作り、ボールと物理法則を追加する
-        ActingForce actingForce = new EarthGravity(); // 重力を追加
+        // 物理法則を作り、力に向心力を設定
+        Point center = new Point(50.0, 50.0, 50.0);
+        ActingForce actingForce = new CentripetalForce(center, 50.0);
         PhysicalLaw law = new LawOfMotion(actingForce);
-        
+
+        // 世界を作り、ボールと物理法則を追加する
         World world = new World();
         world.addPhysical(ball);
         world.addPhysicalLaws(law);
