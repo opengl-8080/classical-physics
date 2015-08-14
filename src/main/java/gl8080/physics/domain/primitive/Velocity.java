@@ -13,6 +13,10 @@ public class Velocity {
         this.z = z;
     }
     
+    public double getQuantity() {
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
+    }
+    
     @Override
     public String toString() {
         return "Velocity {" + this.x + ", " + this.y + ", " + this.z + "}";
