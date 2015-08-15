@@ -24,14 +24,15 @@ public class CentripetalForce implements ActingForce {
         Point p = target.getLocation();
 
         // 力の大きさを求める
-        double r = Math.sqrt(
-                     Math.pow(this.center.x - p.x, 2)
-                   + Math.pow(this.center.y - p.y, 2)
-                   + Math.pow(this.center.z - p.z, 2)
-                 );
-        double m = target.getMass().quantity;
+        double rx = this.center.x - p.x;
+        double ry = this.center.y - p.y;
+        double rz = this.center.z - p.z;
+        double r = Math.sqrt(rx*rx + ry*ry + rz*rz);
+        
         Velocity v = target.getVelocity();
-        double vv = Math.pow(v.x, 2) + Math.pow(v.y, 2) + Math.pow(v.z, 2);
+        double vv = v.x*v.x + v.y*v.y + v.z*v.z;
+        
+        double m = target.getMass().quantity;
         
         double quantityOfForce = m * vv / r;
         

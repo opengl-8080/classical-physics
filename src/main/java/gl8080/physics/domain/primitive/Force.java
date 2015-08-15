@@ -13,6 +13,10 @@ public class Force {
         this.z = z;
     }
     
+    public Force add(Force other) {
+        return new Force(this.x + other.x, this.y + other.y, this.z + other.z);
+    }
+    
     @Override
     public String toString() {
         return "Force {" + this.x + ", " + this.y + ", " + this.z + "}";

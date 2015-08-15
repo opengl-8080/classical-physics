@@ -26,6 +26,10 @@ public class Vector {
     }
     
     public double getNorm() {
-        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
+        return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
+    }
+    
+    public Vector reverse() {
+        return new Vector(-this.x, -this.y, -this.z);
     }
 }
