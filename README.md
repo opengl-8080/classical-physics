@@ -1,4 +1,6 @@
 # classical-physics
+細かい説明は [こちら](http://qiita.com/opengl-8080/items/727bcfdfee7f3a1be164)。
+
 ##必要な環境
 - Java 1.8.0_51 以上
 

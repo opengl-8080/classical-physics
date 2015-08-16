@@ -43,13 +43,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setResizable(false);
         
-        Parent parent = this.firstLawOfMotion(); // 等速直線運動
+//        Parent parent = this.firstLawOfMotion(); // 等速直線運動
 //        Parent parent = this.secondLawOfMotion(); // 放物線運動
 //        Parent parent = this.circle(); // 円運動
 //        Parent parent = this.tension(); // 振り子
 //        Parent parent = this.universalGravitation1(); // 万有引力（冥王星 - カロン）
 //        Parent parent = this.universalGravitation2(); // 万有引力（彗星）
-//        Parent parent = this.universalGravitation3(); // 万有引力（恒星 - 惑星 - 衛星）
+        Parent parent = this.universalGravitation3(); // 万有引力（恒星 - 惑星 - 衛星）
         
         Scene root = new Scene(parent);
         primaryStage.setScene(root);
