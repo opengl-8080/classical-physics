@@ -4,3 +4,13 @@ apply plugin: 'eclipse'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'gl8080.physics.Main'
+    }
+}

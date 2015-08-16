@@ -55,7 +55,7 @@ public class BallLocus implements Content, PhysicalLaw {
     }
     
     private void drawLocus(Physical ball) {
-        // Main スレッド以外で UI を操作するとエラーになるので、 Platform.runLater() を使ってメインスレッドで処理を実行する
+     // Main スレッド以外で UI を操作するとエラーになるので、 Platform.runLater() を使って UI スレッドで処理を実行する
         Platform.runLater(() -> {
             Sphere sphere = this.createSphere(ball);
             
@@ -94,7 +94,7 @@ public class BallLocus implements Content, PhysicalLaw {
             Objects.requireNonNull(law);
             
             this.locus.law = law;
-            this.locus.radius = 1.0;
+            this.locus.radius = 0.5;
             this.locus.color = Color.YELLOW;
             this.locus.historySzie = 50;
             this.locus.interval = 10;
