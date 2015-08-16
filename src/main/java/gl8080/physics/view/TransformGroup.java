@@ -1,6 +1,5 @@
 package gl8080.physics.view;
 
-import gl8080.physics.domain.primitive.Point;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.transform.Rotate;
@@ -14,7 +13,7 @@ public class TransformGroup {
     private Rotate rotateY = new Rotate(0.0, Rotate.Y_AXIS);
     private Translate translate = new Translate();
 
-    public TransformGroup(Point center) {
+    public TransformGroup(ViewPoint center) {
         this.ajustCenter(center.x, center.y, center.z);
         this.rootGroup.getChildren().add(this.ajustCenterGroup);
         this.rootGroup.getTransforms().addAll(rotateX, rotateY, translate);

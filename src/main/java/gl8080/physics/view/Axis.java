@@ -57,4 +57,8 @@ public class Axis implements Content {
     public Node getNode() {
         return this.group;
     }
+
+    @Override
+    public void refresh() {
+    }
 }

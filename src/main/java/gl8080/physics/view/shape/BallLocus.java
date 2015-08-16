@@ -2,12 +2,15 @@ package gl8080.physics.view.shape;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import gl8080.physics.domain.Physical;
 import gl8080.physics.domain.PhysicalLaw;
-import gl8080.physics.domain.primitive.Point;
+//import gl8080.physics.domain.primitive.Point;
 import gl8080.physics.view.Content;
+import gl8080.physics.view.ViewPoint;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -25,8 +28,8 @@ public class BallLocus implements Content, PhysicalLaw {
     
     private PhysicalLaw law;
     private Group group = new Group();
-    private Deque<Sphere> spheres = new ArrayDeque<>();
-    private int count;
+    private Map<Physical, Deque<Sphere>> spheresMap = new HashMap<>();
+    private Map<Physical, Integer> countMap = new HashMap<>();
 
     public static BallLocusBuilder create(PhysicalLaw law) {
         return new BallLocusBuilder(law);
@@ -39,12 +42,14 @@ public class BallLocus implements Content, PhysicalLaw {
 
     @Override
     public void apply(Physical ball, double sec) {
-        this.count++;
+        int count = this.countMap.getOrDefault(ball, 0) + 1;
         
-        if (this.count % this.interval == 0) {
+        if (count % this.interval == 0) {
             this.drawLocus(ball);
-            this.count = 0;
-        } 
+            count = 0;
+        }
+        
+        this.countMap.put(ball, count);
         
         this.law.apply(ball, sec);
     }
@@ -53,11 +58,14 @@ public class BallLocus implements Content, PhysicalLaw {
         // Main スレッド以外で UI を操作するとエラーになるので、 Platform.runLater() を使ってメインスレッドで処理を実行する
         Platform.runLater(() -> {
             Sphere sphere = this.createSphere(ball);
-            this.spheres.addLast(sphere);
+            
+            Deque<Sphere> spheres = this.spheresMap.computeIfAbsent(ball, (key) -> new ArrayDeque<>());
+            spheres.addLast(sphere);
+            
             this.group.getChildren().add(sphere);
             
-            if (this.historySzie < this.spheres.size()) {
-                Sphere removed = this.spheres.removeFirst();
+            if (this.historySzie < spheres.size()) {
+                Sphere removed = spheres.removeFirst();
                 this.group.getChildren().remove(removed);
             }
         });
@@ -66,7 +74,7 @@ public class BallLocus implements Content, PhysicalLaw {
     private Sphere createSphere(Physical ball) {
         Sphere sphere = new Sphere(this.radius);
         
-        Point location = ball.getLocation();
+        ViewPoint location = ViewPoint.of(ball.getLocation());
         sphere.setTranslateX(location.x);
         sphere.setTranslateY(location.y);
         sphere.setTranslateZ(location.z);
@@ -125,5 +133,10 @@ public class BallLocus implements Content, PhysicalLaw {
         public BallLocus build() {
             return this.locus;
         }
+    }
+
+    @Override
+    public void refresh() {
+        // ignore
     }
 }

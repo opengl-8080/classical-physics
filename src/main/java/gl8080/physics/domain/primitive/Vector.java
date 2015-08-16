@@ -32,4 +32,9 @@ public class Vector {
     public Vector reverse() {
         return new Vector(-this.x, -this.y, -this.z);
     }
+    
+    @Override
+    public String toString() {
+        return "Vector {" + this.x + ", " + this.y + ", " + this.z + "}";
+    }
 }

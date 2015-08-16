@@ -5,4 +5,5 @@ import javafx.scene.Node;
 public interface Content {
     
     Node getNode();
+    void refresh();
 }

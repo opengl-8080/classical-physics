@@ -22,6 +22,7 @@ public class LawOfMotion implements PhysicalLaw {
     @Override
     public void apply(Physical physical, double t) {
         Force f = this.actingForce.getForce(physical);
+        
         Velocity v0 = physical.getVelocity();
         Mass m = physical.getMass();
         
